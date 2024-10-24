@@ -117,22 +117,25 @@ class _UserContentScreenState extends ConsumerState<UserContentScreen>
                   },
                 ),
 
-          // Albums Tab
           userAlbums.when(
             data: (albums) {
               return albums.isEmpty
                   ? const Center(child: Text('No albums found for this user'))
-                  : ListView.builder(
+                  : GridView.builder(
+                      padding: const EdgeInsets.all(16),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 12,
+                        mainAxisSpacing: 12,
+                        childAspectRatio: 1.1,
+                      ),
                       itemCount: albums.length,
                       itemBuilder: (context, index) {
                         final album = albums[index];
                         return Card(
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 4),
-                          child: ListTile(
-                            leading: const Icon(Icons.photo_album),
-                            title: Text(album.title),
-                            trailing: const Icon(Icons.chevron_right),
+                          elevation: 2,
+                          child: InkWell(
                             onTap: () {
                               Navigator.push(
                                 context,
@@ -142,6 +145,37 @@ class _UserContentScreenState extends ConsumerState<UserContentScreen>
                                 ),
                               );
                             },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.photo_album_outlined,
+                                  size: 32,
+                                  color: Colors.blue,
+                                ),
+                                const SizedBox(height: 12),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
+                                  child: Text(
+                                    album.title,
+                                    textAlign: TextAlign.center,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                const Icon(
+                                  Icons.arrow_forward,
+                                  size: 20,
+                                  color: Colors.grey,
+                                ),
+                              ],
+                            ),
                           ),
                         );
                       },
