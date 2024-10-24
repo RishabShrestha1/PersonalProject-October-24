@@ -27,6 +27,18 @@ class CommentScreen extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    CircleAvatar(
+                        radius: 35,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Flexible(
+                              child: Text('UserID  ${post.userId.toString()}',
+                                  maxLines: 1,
+                                  style: const TextStyle(
+                                    fontSize: 10,
+                                  ),
+                                  overflow: TextOverflow.ellipsis)),
+                        )),
                     Text(
                       post.title,
                       style: Theme.of(context).textTheme.titleLarge,
